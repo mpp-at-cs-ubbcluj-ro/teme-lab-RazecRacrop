@@ -1,0 +1,65 @@
+@startuml
+left to right direction
+actor PersoanaOficiu
+rectangle SistemRezervari {
+  usecase Login
+  usecase CautareCursa
+  usecase RezervareLocuri
+  usecase Logout
+}
+PersoanaOficiu --> Login
+PersoanaOficiu --> CautareCursa
+PersoanaOficiu --> RezervareLocuri
+PersoanaOficiu --> Logout
+@enduml
+
+@startuml
+class Client {
+    - nume
+    - prenume
+    - detaliiContact
+    + getDetalii()
+    + setDetalii()
+}
+class Cursa {
+    - destinatie
+    - dataPlecare
+    - oraPlecare
+    - numarLocuriDisponibile
+    - autocar
+    + getDetalii()
+    + getLocuriDisponibile()
+    + actualizeazaLocuri()
+}
+class RezervareCursa {
+    - client
+    - cursa
+    - numarLocuriRezervate
+    - numarLocuri
+    + getDetalii()
+    + anuleazaRezervare()
+}
+class Autocar {
+    - numarInmatriculare
+    - numarTotalLocuri
+}
+class Utilizator {
+    - numeUtilizator
+    - parola
+    - oficiu
+    + login()
+    + logout()
+    + cautaCursa()
+    + rezervaLocuri()
+}
+class Oficiu {
+    - numeOficiu
+    - adresa
+    - detaliiContact
+}
+
+Client "1..*" -- "0..*" RezervareCursa : are
+Cursa "1..*" -- "0..*" RezervareCursa : are
+Cursa "1" -- "1" Autocar : are
+Utilizator "1" -- "1" Oficiu : lucreaza la
+@enduml
